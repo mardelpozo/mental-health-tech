@@ -1,0 +1,32 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+
+# --- OS files ---
+.DS_Store
+Thumbs.db
+
+# --- Environments ---
+env/
+venv/
+.venv/
+*.env
+
+# --- PyCharm / IDE ---
+.idea/
+.vscode/
+
+# --- Data Folder ---
+data/processed/
+data/raw/
+
+# --- Figures Folder ---
+figures/
+.figures/
