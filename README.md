@@ -1,87 +1,115 @@
-# Mental Health in the Tech Workplace: A Data Science Case Study
+# Mental Health in Technology: An Unsupervised Learning Case Study
 
-![Python](https://img.shields.io/badge/Python-3.11-blue) ![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange) ![Status](https://img.shields.io/badge/Status-Completed-green)
 
-A quantitative analysis of the 2016 OSMI Mental Health in Tech Survey, utilizing unsupervised machine learning to identify employee risk profiles and propose targeted HR interventions.
+A quantitative analysis of the OSMI 2016 Survey, utilizing unsupervised machine learning to identify mental health profile clusters of employees and propose targeted HR interventions to implement the appropriate management strategies by analyzing survey data from over 1,400 technology professionals.
 
-**Repository:** [https://github.com/mardelpozo/mental-health-tech](https://github.com/mardelpozo/mental-health-tech)
+---
 
-## 📌 Project Overview
+## Table of Contents
+* [Project Overview](#project-overview)
+* [Key Findings](#key-findings)
+* [Methodology](#methodology)
+* [Repository Structure](#repository-structure)
+* [Getting Started](#setup)
+* [References](#references)
 
-Mental health in the technology sector is a critical challenge, characterized by high burnout rates and varying levels of workplace support. This case study applies advanced data science techniques to survey data from over 1,400 technology professionals.
+---
 
-**The Goal:** To categorize employees into distinct "Personas" based on their mental health status, workplace sentiment, and demographic traits, enabling Human Resources to move from generic support models to targeted, data-driven interventions.
+## Project Overview
 
-## 🛠️ Key Technologies & Methodology
+**Problem Context:**
+The intersection of corporate technology environments and mental health has become a focal point for organizational development. This case study moves beyond reactive crisis management to a pre-emptive mitigation program supported by quantitative analysis.
 
-This project focuses on **Mixed-Type Data Analysis** (handling both numerical and categorical survey responses).
+**Proposed Solution:** To categorize employees into distinct personas based on their mental health status, workplace sentiment, and demographic traits, enabling Human Resources to tailor support programs rather than applying a generic approach.
 
-* **Data Cleaning:** Handling structural missingness (skip-logic in survey design) and statistical imputation.
-* **Feature Selection:** Mutual Information scores and Cramer's V for categorical redundancy analysis.
-* **Dimensionality Reduction:** * **FAMD** (Factor Analysis of Mixed Data) to visualize variance structure.
-    * **t-SNE** (using Gower Distance) to visualize the respondent manifold.
-* **Clustering:** **K-Prototypes** algorithm (an extension of K-Means for mixed data) to partition the workforce.
-* **Profiling:** Radar charts and statistical mode analysis to generate business personas.
+**[Link to the full Case Study report](reports/Case%20Study_%20Mental%20Health%20in%20Technology-related%20Jobs-2.pdf)**
 
-## 📂 Project Structure
+---
+
+## Key Findings
+
+The analysis identified three distinct clusters (`k=3`), validated via Stability Analysis (ARI = 0.90) and Hierarchical Clustering. The results suggest that mental health is a spectrum, and management practices, as opposed to medical severity itself, dictate the employee experience.
+
+| Cluster | Persona | Profile Summary                                                                                                                                 | Intervention                                                                                                         |
+| :--- | :--- |:------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------|
+| **0** | **Healthy Baseline** | **Low Risk / Disengaged.** (~36% of workforce). Predominantly without disorders, but scores highest for unawareness of benefits.                | **Preventative education:** Shift from crisis response to proactive benefit education during onboarding.             |
+| **1** | **Supported Risk** | **High Risk / Positive Experience.** (~32%). High prevalence of disorders, yet reports positive workplace support and mental health management. | **Reinforce safety:** Maintain trust via strict anonymity protocols to prevent regression.                           |
+| **2** | **Unsupported Risk** | **High Risk / Negative Experience.** (~32%). High prevalence of disordes, and reports high structural barriers and poor workplace support.      | **Mitigate structural barriers:** Audit administrative workflows to ensure seamless access to support and resources. |
+
+---
+
+## Methodology
+
+This project utilizes a pipeline designed for high-dimensional mixed data:
+
+1.  **Data Preprocessing:**
+     * Handling structural missingness (Skip-Logic) via explicit categorization (encoded as `-1`).
+     * Exclusion of self-employed respondents to focus on corporate HR strategy.
+2.  **Dimensionality Reduction:**
+    * **FAMD (Factor Analysis of Mixed Data):** Used to diagnose variance domination caused by employment history features.
+    * **t-SNE (Gower Distance):** Used to visualize the local manifold, confirming the continuous spectrum of mental health.
+3.  **Clustering:**
+    * **K-Prototypes:** The primary algorithm, extending K-Means to handle both numerical and categorical features.
+    * **Hierarchical Clustering:** Used for structural validation of the `k=3` solution.
+
+**Tech Stack:** `Python 3.11`, `pandas`, `scikit-learn`, `kmodes`, `prince` (FAMD), `gower`, `seaborn`, `missingno`.
+
+---
+
+## Repository Structure
 
 ```text
 ├── data/
-│   ├── raw/                 # Original OSMI 2016 dataset
-│   └── processed/           # Cleaned, encoded, and clustered dataframes
+│   ├── raw/                 # Original OSMI 2016 dataset (Not included in repo, see Setup)
+│   └── processed/           # Cleaned and encoded dataframes and cluster profiles (Run mental-health-tech.ipynb)
 ├── notebooks/
-│   ├── mental-health-tech.ipynb  # Main analysis (EDA, Preprocessing, Modeling)
-│   └── figures.ipynb             # Generation of publication-ready visualizations
+│   ├── mental-health-tech.ipynb  # Primary analysis (ETL, Preprocessing, and Clustering pipeline)
+│   └── figures.ipynb             # Generation of interpretable visualizations for the report
 ├── reports/
-│   ├── figures/             # Exported PNGs for the Case Study document
-│   └── Task_CaseStudy.pdf   # Final Case Study Report
-├── README.md                # Project documentation
-└── environment.yml         # Python dependencies
+│   └── figures/             # Exported PNGs used in the report (Run figures.ipynb)
+├── environment.yml          # Conda environment configuration
+├── README.md 
+└── .gitignore
 ```
 
-## 📊 Key Findings (The Personas)
+## Setup
 
-The analysis identified three distinct clusters of employees (**k=3**), validated via Stability Analysis (ARI = 0.90).
+### 1. Prerequisites
+This project requires **Conda** (Anaconda) to manage mixed dependencies (pip + conda).
 
-| Cluster | Persona Name | Characteristics | HR Recommendation |
-| :--- | :--- | :--- | :--- |
-| **0** | **The Healthy Unaware** | No current disorders, but **low awareness** of benefits. High "Unknown" responses. | **Preventative Literacy:** Focus on education before crisis occurs. |
-| **1** | **The Vulnerable Uncertain** | "Maybe" responses to clinical questions. High uncertainty about safety/anonymity. | **De-stigmatization:** Campaigns explicitly clarifying anonymity protocols. |
-| **2** | **The Critically Affected** | Diagnosed, high benefit awareness, but **high difficulty** taking leave. | **Structural Reform:** Simplify leave processes and reduce administrative friction. |
+### 2. Clone Repository
+```bash
+git clone [https://github.com/mardelpozo/mental-health-tech.git](https://github.com/mardelpozo/mental-health-tech.git)
+cd mental-health-tech
+```
 
-## 🚀 Getting Started
+### 3. Environment
+```bash
+conda env create -f environment.yml
+conda activate mental-health-tech
+```
 
-### Prerequisites
-* Python 3.8+
-* Jupyter Notebook or JupyterLab
+### 4. Dataset Download
+Due to licensing and file size, the raw dataset is not hosted directly in this repository.
 
-### Installation
-1.  Clone the repo:
-    ```bash
-    git clone [https://github.com/mardelpozo/mental-health-tech.git](https://github.com/mardelpozo/mental-health-tech.git)
-    cd mental-health-tech
-    ```
+1.  Navigate to the [OSMI Mental Health in Tech Survey 2016 on Kaggle](https://www.kaggle.com/datasets/osmi/mental-health-in-tech-2016).
+2.  Download the file `mental-heath-in-tech-2016_20161114.csv`.
+3.  Place the downloaded file in the `data/raw/` directory.
 
-2.  Create the environment:
-    ```bash
-    conda env create -f environment.yml
-    conda activate mental-health-tech
-    ```
+*Note: The notebooks are configured to look for the data in this specific relative path.*
 
-3.  Run the analysis:
-    * Open `notebooks/mental-health-tech.ipynb` to see the full modeling pipeline.
-    * Open `notebooks/figures.ipynb` to generate the report visualizations.
+### 5. Running the Analysis
+```bash
+jupyter lab
+```
+- Pipeline (`notebooks/mental-health-tech.ipynb`): Contains the complete end-to-end workflow, including data cleaning, feature engineering, clustering, and validation metrics.
+- Visualizations (`notebooks/figures.ipynb`): Generates the interpretable visualizations (FAMD projections, t-SNE plots, radar Charts) used in the final report.
 
-## 📈 Visualizations
+## References
 
-*See `reports/figures/` for the complete gallery.*
+For a complete list of references, please consult the **Bibliography** section of the corresponding case study report.
 
-* **Manifold Structure:** t-SNE projection showing the continuous spectrum of mental health.
-* **Cluster DNA:** Radar charts highlighting the gap between benefit awareness and structural friction for affected employees.
-
-## 📜 License
-
-This project utilizes data from the Open Sourcing Mental Illness (OSMI) research institute. Code is provided for educational and portfolio purposes.
+This project was conducted as part of the **Machine Learning: Unsupervised Learning and Feature Engineering** course at IU International University of Applied Sciences.
 
 ---
-*Author: [Mariana Del Pozo Patron](https://github.com/mardelpozo)*
+*Author: [Mariana Del Pozo Patrón](https://github.com/mardelpozo)*
