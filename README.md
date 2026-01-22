@@ -22,7 +22,7 @@ The intersection of corporate technology environments and mental health has beco
 
 **Proposed Solution:** To categorize employees into distinct personas based on their mental health status, workplace sentiment, and demographic traits, enabling Human Resources to tailor support programs rather than applying a generic approach.
 
-**[Link to the full Case Study report](reports/Case%20Study_%20Mental%20Health%20in%20Technology-related%20Jobs-2.pdf)**
+**[Link to the full Case Study report](https://docs.google.com/document/d/13YLSrwZEpFJfEOVDi6Xh5uo-uaAa3xYomTThBuegRhc/edit?usp=sharing)**
 
 ---
 
